@@ -1,24 +1,32 @@
 package org.tech.model;
 
+import jakarta.ws.rs.FormParam;
+import org.jboss.resteasy.annotations.providers.multipart.PartType;
+import java.io.InputStream;
+
 public class Client {
 
+    @FormParam("rid")
+    private Long rid;
 
-    private long rid;
-
+    @FormParam("date")
     private String date;
 
+    @FormParam("from")
     private String from;
 
+    @FormParam("to")
     private String to;
 
-    private String xml;
+    @FormParam("xmlFile")
+    @PartType("application/xml")
+    private InputStream xmlFile;
 
-
-    public long getRid() {
+    public Long getRid() {
         return rid;
     }
 
-    public void setRid(long rid) {
+    public void setRid(Long rid) {
         this.rid = rid;
     }
 
@@ -46,24 +54,14 @@ public class Client {
         this.to = to;
     }
 
-    public String getXml() {
-        return xml;
+    public InputStream getXmlFile() {
+        return xmlFile;
     }
 
-    public void setXml(String xml) {
-        this.xml = xml;
+    public void setXmlFile(InputStream xmlFile) {
+        this.xmlFile = xmlFile;
     }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "rid=" + rid +
-                ", date='" + date + '\'' +
-                ", from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", xml='" + xml + '\'' +
-                '}';
-    }
-
-
 }
+
+
+

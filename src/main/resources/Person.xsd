@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="person">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Name field with a minLength and maxLength constraint -->
+                <xs:element name="username">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="2"/> <!-- Minimum 2 characters -->
+                            <xs:maxLength value="50"/> <!-- Maximum 50 characters -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                
+                 <!-- Email field with a pattern constraint for email format -->
+                <xs:element name="email">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+
+                <!-- Age field with min and max constraints -->
+                <xs:element name="password">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="6"/> <!-- Minimum age 18 -->
+                            <xs:maxLength value="15"/> <!-- Maximum age 100 -->
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+
+                <!-- Email field with a pattern constraint for email format -->
+                <xs:element name="phone">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:integer">
+                        
+                        </xs:restriction>
+                    </xs:simpleType>
+                  
+                </xs:element>
+                
+                
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+

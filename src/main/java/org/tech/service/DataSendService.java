@@ -7,6 +7,9 @@ import org.tech.dto.request.MessageData;
 import org.tech.model.Client;
 import org.tech.repository.ClientRefRepository;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 @ApplicationScoped
 public class DataSendService {
 
@@ -19,24 +22,39 @@ public class DataSendService {
     public String validateAndSend(Client requestData) {
         // Check if either the rid or date is valid
         if (validateRidAndDate(requestData.getRid(), requestData.getDate())) {
-            //set this data in MessageData
-            MessageData messageData=new MessageData();
-           messageData.setFrom(requestData.getFrom());
-           messageData.setTo(requestData.getTo());
-           messageData.setXmlData(requestData.getXml());
+            MessageData messageData = new MessageData();
+            messageData.setFrom(requestData.getFrom());
+            messageData.setTo(requestData.getTo());
+
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(requestData.getXmlFile()))) {
+                StringBuilder xmlBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    xmlBuilder.append(line).append("\n");
+                }
+                messageData.setXmlData(xmlBuilder.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Error reading XML file: " + e.getMessage();
+            }
 
             if (messageData == null) {
-                throw new IllegalArgumentException("messageData is null!");
-            }else {
-               // System.out.println(messageData.toString());
-            producerTemplate.sendBody("direct:Validationroutes", messageData);
+                return "messageData is null!";
+            } else {
+                // Send the data to the validation route
+                try {
+                    String response = producerTemplate.requestBody("direct:Validationroutes", messageData.getXmlData(), String.class);
+                    producerTemplate.requestBody("direct:sendData", messageData, String.class);
+                    return response;
+
+                } catch (Exception e) {
+                    return "Error sending to queue: " + e.getMessage();
+                }
             }
-            System.out.println("Validation successfully with this id : " + requestData.getRid());
-            return "Validation successfully, message sent";
-         }else {
-            // If both rid and date are invalid, return validation failed
+        } else {
+            // If rid or date is invalid
             System.out.println("Validation failed for RID: " + requestData.getRid());
-            return "Validation failed";
+            return "Validation failed for RID: " + requestData.getRid();
         }
     }
 

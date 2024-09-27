@@ -43,6 +43,11 @@
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-validator</artifactId>
+        </dependency>
+
         <!--  Camel Quarkus JMS  -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -121,6 +126,11 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-multipart</artifactId>
         </dependency>
 
     </dependencies>

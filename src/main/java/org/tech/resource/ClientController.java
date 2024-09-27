@@ -4,9 +4,9 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.tech.model.Client;
 import org.tech.service.DataSendService;
 
@@ -18,12 +18,23 @@ public class ClientController {
     private DataSendService ciService;
 
 
+//    @POST
+//    @Path("/")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response validateUser(Client client) {
+//        String client1 = ciService.validateAndSend(client);
+//        return Response.status(Response.Status.OK).entity(client1).build();
+//    }
+
     @POST
-    @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response validateUser(Client client) {
-        String client1 = ciService.validateAndSend(client);
-        return Response.status(Response.Status.OK).entity(client1).build();
+    @Consumes(MediaType.MULTIPART_FORM_DATA) // Multi-part request ke liye
+    public Response handleForm(@MultipartForm Client clientData) {
+        // Camel route ko call karna
+        //   producerTemplate.sendBody("direct:processClient", clientData);
+
+        String output = ciService.validateAndSend(clientData);
+        return Response.status(Response.Status.OK).entity(output).build();
     }
+
 }
