@@ -17,20 +17,20 @@ public class ValidationRoute extends RouteBuilder {
 //                .to("activemq:queue:processedQueue");
 //             //   .to("activemq:queue:processedQueue?jmsMessageType=Object");
 
-        from("direct:Validationroutes")
-                .log("Processing message in Validationroutes: ${body}")
-                .doTry()
-                // Perform XML validation using the provided XSD schema
-                .to("validator:Person.xsd")
-                // If validation succeeds, log success and set response
-                .log("XML validated successfully")
-                .setBody(constant("Validation successful, XML is valid"))
-                .doCatch(Exception.class)
-                // On validation failure, log the error and set failure response
-                .log("Validation failed: ${exception.message}")
-                .setBody().simple("Validation failed at line: ${exception.lineNumber}, error: ${exception.message}")
-                .end();
-
+//        from("direct:Validationroutes")
+//                .log("Processing message in Validationroutes: ${body}")
+//                .doTry()
+//                // Perform XML validation using the provided XSD schema
+//                .to("validator:Person.xsd")
+//                // If validation succeeds, log success and set response
+//                .log("XML validated successfully")
+//                .setBody(constant("Validation successful, XML is valid"))
+//                .doCatch(Exception.class)
+//                // On validation failure, log the error and set failure response
+//                .log("Validation failed: ${exception.message}")
+//                .setBody().simple("Validation failed at line: ${exception.lineNumber}, error: ${exception.message}")
+//                .end();
+//
 
 
     }

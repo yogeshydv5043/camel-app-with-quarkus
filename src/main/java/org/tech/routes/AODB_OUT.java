@@ -20,7 +20,7 @@ public class AODB_OUT extends RouteBuilder {
                     String xmlData = messageData.getXmlData();
 
                     // Log the 'from' field value
-                    System.out.println("To field value: " + xmlData);
+                   // System.out.println("To field value: " + xmlData);
 
                     // Optionally modify the message if needed, then set it back
                     exchange.getIn().setBody(messageData);

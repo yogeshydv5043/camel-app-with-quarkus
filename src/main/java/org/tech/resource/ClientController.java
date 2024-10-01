@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
@@ -29,12 +30,9 @@ public class ClientController {
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA) // Multi-part request ke liye
+    @Produces(MediaType.APPLICATION_JSON)
     public Response handleForm(@MultipartForm Client clientData) {
-        // Camel route ko call karna
-        //   producerTemplate.sendBody("direct:processClient", clientData);
-
-        String output = ciService.validateAndSend(clientData);
-        return Response.status(Response.Status.OK).entity(output).build();
+        return ciService.validateAndSend(clientData);
     }
 
 }
