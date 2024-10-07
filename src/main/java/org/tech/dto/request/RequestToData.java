@@ -1,27 +1,19 @@
 package org.tech.dto.request;
 
-
 import java.io.Serializable;
 
-public class MessageData  implements Serializable {
-
+public class RequestToData implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private String from;
 
     private String to;
 
     private String xmlData;
 
+    public RequestToData() {
 
-    public String getFrom() {
-        return from;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
 
     public String getTo() {
         return to;
@@ -39,11 +31,15 @@ public class MessageData  implements Serializable {
         this.xmlData = xmlData;
     }
 
+    public RequestToData(String to, String xmlData) {
+        this.to = to;
+        this.xmlData = xmlData;
+    }
+
     @Override
     public String toString() {
-        return "MessageData{" +
-                "from='" + from + '\'' +
-                ", to='" + to + '\'' +
+        return "RequestToData{" +
+                "to='" + to + '\'' +
                 ", xmlData='" + xmlData + '\'' +
                 '}';
     }

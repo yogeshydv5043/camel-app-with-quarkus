@@ -7,7 +7,7 @@ import org.tech.dto.request.MessageData;
 
 
 @ApplicationScoped
-public class ProcessedRoute extends RouteBuilder {
+public class RouteListener extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
@@ -32,19 +32,19 @@ public class ProcessedRoute extends RouteBuilder {
                 .when(simple("${body.from} == 'BHS-IN'"))
                 .log("Routing message to BHS-IN queue")
                 .marshal().json(JsonLibrary.Jackson)
-                .to("activemq:queue:bhs-in")
+                .to("activemq:queue:bhsIn")
 
                 // If 'from' equals 'BHS_OUT', send to 'bhs_outQueue'
                 .when(simple("${body.from} == 'BHS-OUT'"))
                 .log("Routing message to BHS-OUT queue")
                 .marshal().json(JsonLibrary.Jackson)
-                .to("activemq:queue:bhs-out")
+                .to("activemq:queue:bhsOut")
 
                 // Otherwise, route to the default queue
                 .otherwise()
                 .log("Routing message to default queue")
                 .marshal().json(JsonLibrary.Jackson)
-                .to("activemq:queue:default-bhs")
+                .to("activemq:queue:defaultBhs")
                 .end();
 
     }
