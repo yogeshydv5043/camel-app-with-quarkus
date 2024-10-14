@@ -22,12 +22,19 @@ public class ValidationResponse {
         isValid = valid;
     }
 
-    public ValidationResponse(boolean isValid) {
-        this.isValid = isValid;
+    public ValidationResponse() {
     }
 
     public ValidationResponse(boolean isValid, String errorMessage) {
         this.isValid = isValid;
         this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "ValidationResponse{" +
+                "isValid=" + isValid +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
     }
 }

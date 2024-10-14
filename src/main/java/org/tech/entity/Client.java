@@ -1,7 +1,8 @@
-package org.tech.model;
+package org.tech.entity;
 
 import jakarta.ws.rs.FormParam;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
+
 import java.io.InputStream;
 
 public class Client {

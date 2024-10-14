@@ -2,7 +2,7 @@ package org.tech.repository;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.tech.model.ClientRef;
+import org.tech.entity.ClientRef;
 
 @ApplicationScoped
 public class ClientRefRepository implements PanacheRepository<ClientRef> {

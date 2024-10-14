@@ -8,8 +8,10 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-import org.tech.model.Client;
+import org.tech.entity.Client;
 import org.tech.service.DataSendService;
+
+import java.io.IOException;
 
 @Path("/client")
 public class ClientController {
@@ -31,7 +33,7 @@ public class ClientController {
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA) // Multi-part request ke liye
     @Produces(MediaType.APPLICATION_JSON)
-    public Response handleForm(@MultipartForm Client clientData) {
+    public Response handleForm(@MultipartForm Client clientData) throws IOException {
         return ciService.validateAndSend(clientData);
     }
 

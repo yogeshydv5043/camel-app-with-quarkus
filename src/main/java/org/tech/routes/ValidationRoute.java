@@ -11,17 +11,23 @@ public class ValidationRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        // Define the route for XML validation
+
         from("direct:validateXml")
                 .doTry()
-                .to("validator:Person.xsd") // Validate XML against the specified XSD
-                .setHeader("validationStatus", constant(true)) // Set validation status
+                .log("${body}")
+                .to("validator:Person.xsd")
+              //  .to("validator:AIDXFlightLeg.xsd")
+                .setHeader("validationStatus", constant(true))
                 .process(exchange -> {
-                    // Set the response for successful validation
-                    ValidationResponse response = new ValidationResponse(true);
+
+                    String xmlData =exchange.getIn().getBody().toString();
+
+                    ValidationResponse response = new ValidationResponse();
+                    response.setValid(true);
                     exchange.getIn().setBody(response);
                 })
-                .to("log:${body}") // Send success message to the queue
+
+                .to("log:Validation Status Is : ${body.valid}")
                 .doCatch(Exception.class)
                 .process(exchange -> {
                     // Handle validation failure
@@ -29,7 +35,7 @@ public class ValidationRoute extends RouteBuilder {
                     ValidationResponse response = new ValidationResponse(false, errorMessage);
                     exchange.getIn().setBody(response);
                 })
-                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(400)) // Set HTTP response code to 400
-                .to("log:error"); // Log the error// Log the error
+                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(400))
+                .to("log:error");
     }
 }

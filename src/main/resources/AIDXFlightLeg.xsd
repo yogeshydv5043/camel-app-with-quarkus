@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="AIDXFlightLeg">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Header" type="HeaderType"/>
+                <xs:element name="FlightLeg" type="FlightLegType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="HeaderType">
+        <xs:sequence>
+            <xs:element name="MessageType" type="xs:string"/>
+            <xs:element name="MessageVersion" type="xs:string"/>
+            <xs:element name="SenderID" type="xs:string"/>
+            <xs:element name="RecipientID" type="xs:string"/>
+            <xs:element name="CreationDateTime" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="FlightLegType">
+        <xs:sequence>
+            <xs:element name="Airline" type="AirlineType"/>
+            <xs:element name="FlightNumber" type="xs:string"/>
+            <xs:element name="Departure" type="AirportEventType"/>
+            <xs:element name="Arrival" type="AirportEventType"/>
+            <xs:element name="Aircraft" type="AircraftType"/>
+            <xs:element name="OperationalTimes" type="OperationalTimesType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AirlineType">
+        <xs:sequence>
+            <xs:element name="IATA" type="xs:string"/>
+            <xs:element name="ICAO" type="xs:string"/>
+            <xs:element name="Name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AirportEventType">
+        <xs:sequence>
+            <xs:element name="Airport" type="AirportType"/>
+            <xs:element name="ScheduledDateTime" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AirportType">
+        <xs:sequence>
+            <xs:element name="IATA" type="xs:string"/>
+            <xs:element name="ICAO" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AircraftType">
+        <xs:sequence>
+            <xs:element name="Registration" type="xs:string"/>
+            <xs:element name="Type" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OperationalTimesType">
+        <xs:sequence>
+            <xs:element name="ActualOffBlockTime" type="xs:dateTime"/>
+            <xs:element name="ActualOnBlockTime" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+

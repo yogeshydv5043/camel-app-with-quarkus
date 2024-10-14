@@ -5,7 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.tech.dto.request.ClientRefDto;
-import org.tech.model.ClientRef;
+import org.tech.entity.ClientRef;
 import org.tech.service.DBService;
 
 import java.util.List;

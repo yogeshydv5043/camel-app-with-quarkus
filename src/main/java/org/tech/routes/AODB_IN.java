@@ -9,7 +9,6 @@ import org.tech.dto.request.RequestToData;
 public class AODB_IN extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-
         from("activemq:queue:aodbIn")
                 .unmarshal().json(JsonLibrary.Jackson, RequestToData.class)
                 .process(exchange -> {
@@ -17,8 +16,10 @@ public class AODB_IN extends RouteBuilder {
                     String xmlData = requestToData.getXmlData();
                     exchange.getIn().setBody(xmlData);
                 })
-                .log("This is AODB-IN SERVICE :")
-                .to("log: ${body}");
-        //  .log("This Is AODB-IN : ${body}");
+                .log("This is AODB-IN SERVICE : ")
+                .log("Data Sending for table ...")
+                .to("direct:personSave");
+
+
     }
 }

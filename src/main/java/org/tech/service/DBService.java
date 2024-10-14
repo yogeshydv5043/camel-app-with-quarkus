@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.tech.dto.request.ClientRefDto;
-import org.tech.model.ClientRef;
+import org.tech.entity.ClientRef;
 import org.tech.repository.ClientRefRepository;
 
 import java.time.LocalDate;
